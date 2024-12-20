@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commission Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            text-align: center;
+            color: #007bff;
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9f7fe;
+            border-left: 5px solid #007bff;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            color: #007bff;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #007bff;
+            color: white;
+            margin-top: 30px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Commission Calculator</h1>
+    </header>
+    <div class="container">
+        <h2>Calculate Your Commission</h2>
+        <label for="salePrice">Home Sale Price ($):</label>
+        <input type="number" id="salePrice" placeholder="Enter the sale price">
+        <button onclick="calculateCommission()">Calculate</button>
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+    <footer>
+        &copy; 2024 Commission Calculator. All rights reserved.
+    </footer>
+
+    <script>
+        function calculateCommission() {
+            const salePrice = parseFloat(document.getElementById('salePrice').value);
+
+            if (isNaN(salePrice) || salePrice <= 0) {
+                alert('Please enter a valid home sale price.');
+                return;
+            }
+
+            const first100k = Math.min(salePrice, 100000);
+            const remainder = Math.max(0, salePrice - 100000);
+
+            const commission = (first100k * 0.07) + (remainder * 0.03);
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('result').innerHTML = `
+                <p><strong>Total Commission:</strong> $${commission.toFixed(2)}</p>
+                <p><strong>Net Sale Price:</strong> $${(salePrice - commission).toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
